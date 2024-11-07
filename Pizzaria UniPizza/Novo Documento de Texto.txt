@@ -1,0 +1,35 @@
+CREATE DATABASE pizzaria;
+
+USE pizzaria;
+
+-- Tabela de usuários
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);
+
+-- Tabela de pizzas
+CREATE TABLE pizzas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10, 2) NOT NULL,
+    ingredientes TEXT
+);
+
+-- Tabela de pedidos
+CREATE TABLE pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    pizza_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    status VARCHAR(20) DEFAULT 'Em andamento',
+    data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (pizza_id) REFERENCES pizzas(id)
+);
+
+-- Inserir um usuário de exemplo
+INSERT INTO usuarios (username, senha) 
+VALUES ('admin', '$2y$10$C9Zl/jKcViN9t5Q4F5Gf5uWq5.fZJXf3vJ/HnJzMIGI9Q1tbIek0e'); -- Senha: "senha123"
